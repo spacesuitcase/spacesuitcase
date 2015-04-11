@@ -16,23 +16,21 @@ def store( fname, field ):
 
 @post('/update')
 def update():
-    lon = request.forms.get('lat')
-    lat = request.forms.get('lat')
     label = request.forms.get('label')
-    store( 'loc.txt', str({ 'lat': lat, 'lon': lon, 'label': label }) )
+    store( 'loc.txt', str(label) )
     return 'Okay!'
 
 
 @post('/update_field_a')
 def update_field_a():
     label = request.forms.get('field_a')
-    store( 'field_a.txt', str({ 'field_a': label }) )
+    store( 'field_a.txt', str(label) )
     return 'Okay!'
 
 @post('/update_field_b')
 def update_field_b():
     label = request.forms.get('field_b')
-    store( 'field_b.txt', str({ 'field_b': label }) )
+    store( 'field_b.txt', str(label) )
     return 'Okay!'
 
 
