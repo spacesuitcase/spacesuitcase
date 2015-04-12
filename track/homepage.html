@@ -10,34 +10,46 @@
       margin: 2px;
       }
     </style>
-    <script src="/static/jquery.js"></script>
+    <script src="http://husnoo.com/cgi-bin/space.py/static/jquery.js"></script>
     <script>
 
-      $("#status").text('');
+$( document ).ready(function() {
       
-      var locs = {
-      'home': { 'lat': 0.0, 'lon': 0.0, 'label': 'home' },
-      'travel': { 'lat': 0.0, 'lon': 0.0, 'label': 'travel' },
-      'work': { 'lat': 0.0, 'lon': 0.0, 'label': 'work' },
-      'park': { 'lat': 0.0, 'lon': 0.0, 'label': 'park' },
-      'beach': { 'lat': 0.0, 'lon': 0.0, 'label': 'beach' },
-      };
       
-      $( document ).ready(function() {
-      $('button').click( function() {
-          var loc = $(this).attr("id");
-          latlon = locs[loc];
 
-          $.ajax({
-              type: "POST",
-              url: '/update',
-              data: latlon,
-              success: function() { $("#status").text('okay'); },
-              error: function(XMLHttpRequest, textStatus, errorThrown) {
-                  $("#status").text("error: " + textStatus );
-              }
-          });
-      });
+    $('button.loc').click( function() {
+        $("#status").text('');
+      
+        var loc = $(this).attr("id");
+        console.log( loc )
+        $.ajax({
+            type: "POST",
+            url: 'http://husnoo.com/cgi-bin/space.py/update',
+            data: {'label': loc},
+            success: function() { $("#status").text('okay'); },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                $("#status").text("error: " + textStatus );
+            }
+        });
+    });
+  
+    $('button.col').click( function() {
+        $("#status").text('');
+      
+        var col = $(this).attr("id");
+  
+        $.ajax({
+            type: "POST",
+            url: 'http://husnoo.com/cgi-bin/space.py/update_field_a',
+            data: {'field_a': col},
+            success: function() { $("#status").text('okay'); },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                $("#status").text("error: " + textStatus );
+            }
+        });
+    });  
+    
+      
 });
 
 
@@ -48,12 +60,16 @@
 
   <body>
     <span id="status"></span><br>
-     <button type="button" id="home">Home</button><br>
-     <button type="button" id="travel">Travel</button><br>
-     <button type="button" id="work">Work</button><br>
-     <button type="button" id="park">Park</button><br> 
-     <button type="button" id="beach">Beach</button>
-
+     <button type="button" class="loc" id="home">Home</button><br>
+     <button type="button" class="loc" id="school">School</button><br>
+     <button type="button" class="loc" id="park">Park</button><br> 
+     <button type="button" class="loc" id="beach">Beach</button>
+     <hr>
+     <button type="button" class="col" id="red">Red</button><br>
+     <button type="button" class="col" id="green">Green</button><br>
+     <button type="button" class="col" id="blue">Blue</button><br> 
+     <hr>
+     
     
   </body>
 
